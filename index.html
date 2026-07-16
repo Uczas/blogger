@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#4f46e5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  
+  <title>📝 Blog Builder · ugbosu.com</title>
+  
+  <!-- ===== PWA MANIFEST ===== -->
+  <link rel="manifest" href="data:application/json,{
+    &quot;name&quot;:&quot;Ugbosu Blog Builder&quot;,
+    &quot;short_name&quot;:&quot;Blog Builder&quot;,
+    &quot;description&quot;:&quot;Build blog posts for ugbosu.com&quot;,
+    &quot;start_url&quot;:&quot;.&quot;,
+    &quot;display&quot;:&quot;standalone&quot;,
+    &quot;background_color&quot;:&quot;#0f0f1a&quot;,
+    &quot;theme_color&quot;:&quot;#4f46e5&quot;,
+    &quot;icons&quot;:[
+      {&quot;src&quot;:&quot;/android-chrome-192x192.png&quot;,&quot;sizes&quot;:&quot;192x192&quot;,&quot;type&quot;:&quot;image/png&quot;,&quot;purpose&quot;:&quot;any maskable&quot;},
+      {&quot;src&quot;:&quot;/android-chrome-512x512.png&quot;,&quot;sizes&quot;:&quot;512x512&quot;,&quot;type&quot;:&quot;image/png&quot;,&quot;purpose&quot;:&quot;any maskable&quot;}
+    ]
+  }" />
+  
+  <!-- ===== FAVICONS ===== -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <!-- ===== FONTS ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    /* ============================================================
+       🌟 MODERN UI WITH YOUR BRAND
+       ============================================================ */
+    
+    /* ---------- RESET ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      /* Primary brand */
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --primary-light: #818cf8;
+      --primary-glow: rgba(79, 70, 229, 0.3);
+      --primary-bg: rgba(79, 70, 229, 0.08);
+      
+      /* Gradients */
+      --gradient-main: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      --gradient-subtle: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+      --gradient-glow: radial-gradient(ellipse at 50% 0%, rgba(79, 70, 229, 0.15) 0%, transparent 70%);
+      
+      /* Colors */
+      --success: #10b981;
+      --success-dark: #059669;
+      --success-glow: rgba(16, 185, 129, 0.3);
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      
+      /* Theme */
+      --bg: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --card: #ffffff;
+      --card-hover: #f8fafc;
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow: 0 4px 24px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 40px rgba(0,0,0,0.08);
+      --shadow-lg: 0 16px 64px rgba(0,0,0,0.10);
+      --shadow-glow: 0 8px 40px rgba(79, 70, 229, 0.15);
+      
+      /* Radius */
+      --radius: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --radius-xs: 6px;
+      
+      /* Spacing */
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      
+      /* Transitions */
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* ---------- DARK MODE ---------- */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f1a;
+        --bg-secondary: #18182b;
+        --card: #1a1a2e;
+        --card-hover: #222244;
+        --text: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --border: #2a2a44;
+        --border-light: #1f1f35;
+        --shadow: 0 4px 24px rgba(0,0,0,0.3);
+        --shadow-md: 0 8px 40px rgba(0,0,0,0.4);
+        --shadow-lg: 0 16px 64px rgba(0,0,0,0.5);
+        --shadow-glow: 0 8px 40px rgba(79, 70, 229, 0.2);
+        --primary-bg: rgba(79, 70, 229, 0.15);
+        --gradient-glow: radial-gradient(ellipse at 50% 0%, rgba(79, 70, 229, 0.10) 0%, transparent 70%);
+      }
+    }
+    
+    /* ---------- BASE ---------- */
+    html {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding-bottom: calc(88px + var(--safe-bottom));
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Subtle background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: var(--gradient-glow);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    /* ---------- APP CONTAINER ---------- */
+    .app-container {
+      position: relative;
+      z-index: 1;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 1.25rem 1.25rem 0;
+    }
+    
+    @media (min-width: 600px) {
+      .app-container {
+        max-width: 600px;
+        padding: 2rem 2rem 0;
+      }
+      body {
+        padding-bottom: calc(96px + var(--safe-bottom));
+      }
+    }
+    
+    /* ---------- HEADER ---------- */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0 1.25rem;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 20;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 1.25rem;
+    }
+    
+    .app-header-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .app-header-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: var(--gradient-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: white;
+      box-shadow: 0 4px 12px var(--primary-glow);
+      flex-shrink: 0;
+    }
+    
+    .app-header h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    
+    .app-header h1 span {
+      color: var(--primary);
+    }
+    
+    .app-header-badge {
+      font-size: 0.55rem;
+      font-weight: 600;
+      background: var(--primary-bg);
+      color: var(--primary);
+      padding: 0.15rem 0.5rem;
+      border-radius: 40px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-left: 0.25rem;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .header-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .header-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+    
+    .header-btn:active {
+      transform: scale(0.92);
+    }
+    
+    .header-btn-primary {
+      background: var(--gradient-main);
+      color: white;
+      border: none;
+    }
+    
+    .header-btn-primary:hover {
+      color: white;
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+    
+    /* ---------- TOAST ---------- */
+    .toast {
+      position: fixed;
+      bottom: calc(100px + var(--safe-bottom));
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--text);
+      color: var(--bg);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      font-size: 0.85rem;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      z-index: 100;
+      max-width: 90%;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .toast i {
+      margin-right: 0.5rem;
+    }
+    .toast.success i { color: var(--success); }
+    .toast.info i { color: var(--primary-light); }
+    
+    /* ---------- TABS ---------- */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--card);
+      border-radius: var(--radius-md);
+      padding: 0.35rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-light);
+    }
+    
+    .tab-btn {
+      flex: 1;
+      padding: 0.65rem 0.5rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+    }
+    
+    .tab-btn i {
+      font-size: 0.9rem;
+    }
+    
+    .tab-btn.active {
+      background: var(--gradient-main);
+      color: white;
+      box-shadow: var(--shadow-glow);
+    }
+    
+    .tab-btn:not(.active):hover {
+      color: var(--text);
+      background: var(--bg-secondary);
+    }
+    
+    .tab-btn:active {
+      transform: scale(0.96);
+    }
+    
+    .tab-content {
+      display: none;
+      animation: fadeSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* ---------- CARDS ---------- */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-light);
+      transition: var(--transition);
+    }
+    
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    
+    /* ---------- FORM ---------- */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: 0.4rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+    }
+    
+    .form-group label i {
+      margin-right: 0.4rem;
+      color: var(--primary);
+      width: 1.1rem;
+    }
+    
+    .form-group label .required {
+      color: var(--danger);
+      margin-left: 0.15rem;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      transition: var(--transition);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-appearance: none;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-glow);
+      background: var(--card);
+    }
+    
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+    
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+    
+    .form-group .hint {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
+    
+    .form-group .hint code {
+      background: var(--bg-secondary);
+      padding: 0.1rem 0.4rem;
+      border-radius: var(--radius-xs);
+      font-size: 0.65rem;
+      color: var(--primary);
+      font-family: 'Inter', monospace;
+    }
+    
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    
+    @media (max-width: 450px) {
+      .form-row-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* ---------- FILENAME - HIGHLIGHTED ---------- */
+    .filename-card {
+      background: var(--gradient-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      border: 2px solid var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .filename-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 100px;
+      height: 100px;
+      background: var(--primary-glow);
+      border-radius: 50%;
+      opacity: 0.3;
+      filter: blur(40px);
+    }
+    
+    .filename-card .form-group {
+      margin-bottom: 0;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .filename-card label {
+      color: var(--primary) !important;
+    }
+    
+    .filename-card input {
+      background: var(--card) !important;
+      font-weight: 600;
+      border-color: var(--primary) !important;
+    }
+    
+    .filename-card input:focus {
+      box-shadow: 0 0 0 4px var(--primary-glow) !important;
+    }
+    
+    .filename-preview {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--card);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-xs);
+      font-family: 'Inter', monospace;
+      font-size: 0.7rem;
+      color: var(--primary);
+      border: 1px solid var(--border);
+      font-weight: 600;
+    }
+    
+    .filename-preview i {
+      color: var(--success);
+      font-size: 0.6rem;
+    }
+    
+    /* ---------- RELATED POSTS ---------- */
+    .related-entry {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      background: var(--bg-secondary);
+      padding: 0.6rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+      transition: var(--transition);
+    }
+    
+    .related-entry:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+    
+    .related-entry input {
+      background: var(--card);
+      padding: 0.5rem 0.7rem;
+      font-size: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+    }
+    
+    .related-entry input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+    
+    @media (max-width: 450px) {
+      .related-entry {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* ---------- BUTTONS ---------- */
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--border-light);
+    }
+    
+    .action-row .full-width {
+      grid-column: 1 / -1;
+    }
+    
+    .btn {
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn:active {
+      transform: scale(0.96);
+    }
+    
+    .btn-primary {
+      background: var(--gradient-main);
+      color: #fff;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px var(--success-glow);
+    }
+    
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary-bg);
+      transform: translateY(-2px);
+    }
+    
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 2px solid var(--border);
+    }
+    
+    .btn-ghost:hover {
+      background: var(--bg-secondary);
+      border-color: var(--text-muted);
+    }
+    
+    /* ---------- PREVIEW ---------- */
+    .preview-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-light);
+    }
+    
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .preview-header h2 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .preview-header h2 i {
+      color: var(--primary);
+    }
+    
+    .preview-badge {
+      background: var(--primary-bg);
+      color: var(--primary);
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    
+    .preview-frame {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      background: var(--bg-secondary);
+      max-height: 520px;
+      overflow-y: auto;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      min-height: 200px;
+      transition: var(--transition);
+    }
+    
+    .preview-frame:hover {
+      border-color: var(--primary-light);
+    }
+    
+    .preview-frame h1 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.01em;
+    }
+    
+    .preview-frame .meta-line {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    
+    .preview-frame img {
+      max-width: 100%;
+      border-radius: var(--radius-sm);
+      margin: 0.75rem 0;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .preview-frame .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 180px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    
+    .preview-frame .empty-state i {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--border);
+    }
+    
+    .preview-frame::-webkit-scrollbar {
+      width: 4px;
+    }
+    .preview-frame::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 8px;
+    }
+    .preview-frame::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .preview-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    
+    .preview-actions .btn {
+      flex: 1;
+    }
+    
+    /* ---------- HOSTING INFO ---------- */
+    .hosting-info {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.02) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0 0.5rem;
+      font-size: 0.75rem;
+      line-height: 1.6;
+    }
+    
+    .hosting-info strong {
+      color: var(--success);
+    }
+    
+    .hosting-info a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .hosting-info a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+    
+    .hosting-info .hosting-icon {
+      margin-right: 0.4rem;
+      color: var(--success);
+    }
+    
+    /* ---------- BOTTOM NAV ---------- */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border-top: 1px solid var(--border-light);
+      padding: 0.5rem 1rem calc(0.5rem + var(--safe-bottom));
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 30;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+    }
+    
+    .bottom-nav .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.1rem;
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.5rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.2rem 1rem;
+      transition: var(--transition);
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    
+    .bottom-nav .nav-item i {
+      font-size: 1.25rem;
+      transition: var(--transition);
+    }
+    
+    .bottom-nav .nav-item.active {
+      color: var(--primary);
+    }
+    
+    .bottom-nav .nav-item.active i {
+      transform: translateY(-2px);
+    }
+    
+    .bottom-nav .nav-item.active::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 25%;
+      right: 25%;
+      height: 3px;
+      background: var(--gradient-main);
+      border-radius: 0 0 4px 4px;
+    }
+    
+    .bottom-nav .nav-item:active {
+      transform: scale(0.92);
+    }
+    
+    .bottom-nav .nav-item .badge {
+      background: var(--danger);
+      color: white;
+      border-radius: 40px;
+      padding: 0.05rem 0.35rem;
+      font-size: 0.4rem;
+      font-weight: 700;
+      position: absolute;
+      top: -2px;
+      right: -2px;
+    }
+    
+    .bottom-nav .nav-item .nav-label {
+      font-size: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    
+    @media (min-width: 600px) {
+      .bottom-nav .nav-item {
+        padding: 0.2rem 1.5rem;
+        font-size: 0.55rem;
+      }
+      .bottom-nav .nav-item i {
+        font-size: 1.35rem;
+      }
+    }
+    
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 400px) {
+      .app-container {
+        padding: 0.75rem 0.75rem 0;
+      }
+      .card {
+        padding: 1rem;
+      }
+      .app-header h1 {
+        font-size: 1rem;
+      }
+      .app-header-logo {
+        width: 34px;
+        height: 34px;
+        font-size: 1rem;
+      }
+      .btn {
+        font-size: 0.75rem;
+        padding: 0.6rem 0.8rem;
+      }
+      .tab-btn {
+        font-size: 0.7rem;
+        padding: 0.5rem 0.3rem;
+      }
+      .tab-btn i {
+        font-size: 0.75rem;
+      }
+    }
+    
+    /* ---------- SCROLLBAR GLOBAL ---------- */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  <span id="toastMsg">Done!</span>
+</div>
+
+<!-- ===== APP ===== -->
+<div class="app-container">
+  
+  <!-- ===== HEADER ===== -->
+  <header class="app-header">
+    <div class="app-header-brand">
+      <div class="app-header-logo">U</div>
+      <h1>Blog <span>Builder</span><span class="app-header-badge">PWA</span></h1>
+    </div>
+    <div class="header-actions">
+      <button class="header-btn" id="resetBtn" title="Reset to sample" aria-label="Reset">
+        <i class="fas fa-undo"></i>
+      </button>
+      <button class="header-btn header-btn-primary" id="exportBtn" title="Export" aria-label="Export">
+        <i class="fas fa-download"></i>
+      </button>
+    </div>
+  </header>
+  
+  <!-- ===== TABS ===== -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="form">
+      <i class="fas fa-edit"></i> Form
+    </button>
+    <button class="tab-btn" data-tab="preview">
+      <i class="fas fa-eye"></i> Preview
+    </button>
+  </div>
+  
+  <!-- ===== TAB: FORM ===== -->
+  <div class="tab-content active" id="tab-form">
+    <div class="card">
+      <form id="blogForm" autocomplete="off">
+        
+        <!-- ===== FILENAME ===== -->
+        <div class="filename-card">
+          <div class="form-group" style="margin-bottom:0;">
+            <label><i class="fas fa-file-code"></i> Filename (slug) <span class="required">*</span></label>
+            <input type="text" id="filenameEl" placeholder="e.g. business-optimization-why-good-enough-is-not-enough" 
+                   value="business-optimization-why-good-enough-is-not-enough">
+            <div class="hint">
+              <i class="fas fa-info-circle"></i> This becomes your .html filename. Auto-generated from title.
+              <br><span class="filename-preview" id="filenamePreview"><i class="fas fa-check-circle"></i> business-optimization-why-good-enough-is-not-enough.html</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ===== TITLE ===== -->
+        <div class="form-group">
+          <label><i class="fas fa-heading"></i> Blog Title <span class="required">*</span></label>
+          <input type="text" id="blogTitle" placeholder="e.g. The Art of Business Optimization" 
+                 value="The Art of Business Optimization: Why 'Good Enough' Is Not Enough">
+          <div class="hint">
+            <i class="fas fa-tag"></i> Used in: <code>&lt;title&gt;</code> · <code>og:title</code> · <code>headline</code> · <code>&lt;h1&gt;</code>
+          </div>
+        </div>
+        
+        <!-- ===== META + AUTHOR ===== -->
+        <div class="form-row-2">
+          <div class="form-group">
+            <label><i class="fas fa-tag"></i> Meta Description <span class="required">*</span></label>
+            <input type="text" id="metaDesc" placeholder="SEO description" 
+                   value="Most businesses settle for 'good enough' without realizing it. Discover why suboptimal strategies cost more than you think and how to pursue real optimization.">
+            <div class="hint">
+              <i class="fas fa-info-circle"></i> <code>meta name="description"</code> · <code>og:description</code>
+            </div>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Author <span class="required">*</span></label>
+            <input type="text" id="authorName" placeholder="Full name" value="Charles Ugbosu">
+            <div class="hint">
+              <i class="fas fa-info-circle"></i> <code>meta name="author"</code> · <code>author.name</code>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ===== IMAGE ===== -->
+        <div class="form-row-2">
+          <div class="form-group">
+            <label><i class="fas fa-image"></i> Image URL <span class="required">*</span></label>
+            <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg" 
+                   value="/images/optimization_gradient.png">
+            <div class="hint">
+              <i class="fas fa-info-circle"></i> <code>og:image</code> · <code>image</code> · <code>&lt;img&gt;</code>
+            </div>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-font"></i> Image Alt Text</label>
+            <input type="text" id="imageAlt" placeholder="Describe the image" 
+                   value="The Art of Business Optimization">
+            <div class="hint">
+              <i class="fas fa-info-circle"></i> <code>&lt;img alt&gt;</code>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ===== PUB DATE ===== -->
+        <div class="form-group">
+          <label><i class="fas fa-calendar"></i> Publication Date <span class="required">*</span></label>
+          <input type="text" id="pubDate" placeholder="e.g. July 13, 2026" value="July 13, 2026">
+          <div class="hint">
+            <i class="fas fa-info-circle"></i> Displayed below the title
+          </div>
+        </div>
+        
+        <!-- ===== BODY ===== -->
+        <div class="form-group">
+          <label><i class="fas fa-paragraph"></i> Blog Body (HTML) <span class="required">*</span></label>
+          <textarea id="blogBody" rows="6">&lt;p&gt;Every business, regardless of its size or industry, is constantly engaged in one fundamental exercise: optimization. At its core, optimization is beautifully simple—we are either trying to minimize something or maximize something. Every company across the globe, whether consciously or not, operates between these two poles: minimizing business costs on one hand, and maximizing revenue on the other.&lt;/p&gt;
+
+&lt;p&gt;But here's the uncomfortable truth: &lt;strong&gt;most businesses settle for less than they should.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2&gt;The Trap of Suboptimal Strategies&lt;/h2&gt;
+
+&lt;p&gt;If a company employs a strategy that reduces its operational costs or increases its total revenue, yet a better approach exists that could optimize further, that strategy is, by definition, a &lt;strong&gt;suboptimal strategy&lt;/strong&gt;. It is not the best strategy—it is simply a strategy that works.&lt;/p&gt;
+
+&lt;p&gt;And this is where many businesses quietly drift into complacency. Most companies go to bed peacefully once the difference between their total revenue and total cost yields a "reasonable" positive figure. The numbers are in the green, so the thinking stops. But is "reasonable" truly enough?&lt;/p&gt;</textarea>
+          <div class="hint">
+            <i class="fas fa-info-circle"></i> Use <code>&lt;p&gt;</code> · <code>&lt;h2&gt;</code> · <code>&lt;ul&gt;</code> · <code>&lt;img&gt;</code> etc.
+          </div>
+        </div>
+        
+        <!-- ===== RELATED POSTS ===== -->
+        <div class="form-group">
+          <label><i class="fas fa-link"></i> Related Posts <span style="font-weight:400;color:var(--text-muted);font-size:0.7rem;">(max 3)</span></label>
+          <div id="relatedContainer">
+            <div class="related-entry">
+              <input type="text" placeholder="Post title" class="rel-title" value="What Will You Offer When The Jobs Are Gone?">
+              <input type="text" placeholder="Relative URL" class="rel-url" value="/blogs/what-will-you-offer-when-the-jobs-are-gone">
+            </div>
+            <div class="related-entry">
+              <input type="text" placeholder="Post title" class="rel-title" value="The Paradox of Infinite Knowledge">
+              <input type="text" placeholder="Relative URL" class="rel-url" value="/blogs/The-Paradox-of-Infinite-Knowledge">
+            </div>
+            <div class="related-entry">
+              <input type="text" placeholder="Post title" class="rel-title" value="If You Must Be Relevant!">
+              <input type="text" placeholder="Relative URL" class="rel-url" value="/blogs/if-you-must-be-relevant">
+            </div>
+          </div>
+          <div class="hint">
+            <i class="fas fa-info-circle"></i> Leave blank to omit. Appears in "ALSO READ" section.
+          </div>
+        </div>
+        
+        <!-- ===== ACTIONS ===== -->
+        <div class="action-row">
+          <button type="button" class="btn btn-primary" id="previewBtn">
+            <i class="fas fa-eye"></i> Preview
+          </button>
+          <button type="button" class="btn btn-success" id="exportBtn2">
+            <i class="fas fa-download"></i> Export
+          </button>
+          <button type="button" class="btn btn-ghost full-width" id="resetBtn2">
+            <i class="fas fa-undo"></i> Reset to Sample
+          </button>
+        </div>
+        
+        <!-- ===== HOSTING INFO ===== -->
+        <div class="hosting-info">
+          <i class="fas fa-globe hosting-icon"></i>
+          <strong>🌐 Host this app online</strong> — it's safe and free!
+          Upload to 
+          <a href="https://pages.github.com" target="_blank">GitHub Pages</a> · 
+          <a href="https://netlify.com" target="_blank">Netlify</a> · 
+          <a href="https://vercel.com" target="_blank">Vercel</a>
+          <br>
+          <span style="font-size:0.65rem;color:var(--text-muted);">
+            <i class="fas fa-shield-alt"></i> All processing stays in your browser — no data is sent anywhere.
+          </span>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  
+  <!-- ===== TAB: PREVIEW ===== -->
+  <div class="tab-content" id="tab-preview">
+    <div class="preview-card">
+      <div class="preview-header">
+        <h2><i class="fas fa-desktop"></i> Live Preview</h2>
+        <span class="preview-badge"><i class="far fa-file-code"></i> rendered</span>
+      </div>
+      <div class="preview-frame" id="previewFrame">
+        <div class="empty-state">
+          <i class="fas fa-file-alt"></i>
+          <p>Fill in the form and tap <strong>Preview</strong></p>
+          <span style="font-size:0.7rem;color:var(--text-muted);">Sample data is pre-loaded</span>
+        </div>
+      </div>
+      <div class="preview-actions">
+        <button class="btn btn-primary" id="previewBtn2">
+          <i class="fas fa-sync"></i> Refresh
+        </button>
+        <button class="btn btn-success" id="exportBtn3">
+          <i class="fas fa-download"></i> Export
+        </button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="bottom-nav">
+  <button class="nav-item active" data-tab="form" aria-label="Form">
+    <i class="fas fa-edit"></i>
+    <span class="nav-label">Form</span>
+  </button>
+  <button class="nav-item" data-tab="preview" aria-label="Preview">
+    <i class="fas fa-eye"></i>
+    <span class="nav-label">Preview</span>
+    <span class="badge">live</span>
+  </button>
+  <button class="nav-item" id="navExport" aria-label="Export">
+    <i class="fas fa-download" style="color:var(--success);"></i>
+    <span class="nav-label" style="color:var(--success);">Export</span>
+  </button>
+</nav>
+
+<script>
+(function() {
+  'use strict';
+  
+  // ===== DOM REFS =====
+  const filenameEl = document.getElementById('filenameEl');
+  const filenamePreview = document.getElementById('filenamePreview');
+  const titleEl = document.getElementById('blogTitle');
+  const metaEl = document.getElementById('metaDesc');
+  const authorEl = document.getElementById('authorName');
+  const imgUrlEl = document.getElementById('imageUrl');
+  const imgAltEl = document.getElementById('imageAlt');
+  const dateEl = document.getElementById('pubDate');
+  const bodyEl = document.getElementById('blogBody');
+  const relTitles = document.querySelectorAll('.rel-title');
+  const relUrls = document.querySelectorAll('.rel-url');
+  const previewFrame = document.getElementById('previewFrame');
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
+  
+  // ===== SAMPLE DATA =====
+  const sampleData = {
+    filename: "business-optimization-why-good-enough-is-not-enough",
+    title: "The Art of Business Optimization: Why 'Good Enough' Is Not Enough",
+    meta: "Most businesses settle for 'good enough' without realizing it. Discover why suboptimal strategies cost more than you think and how to pursue real optimization.",
+    author: "Charles Ugbosu",
+    imgUrl: "/images/optimization_gradient.png",
+    imgAlt: "The Art of Business Optimization",
+    date: "July 13, 2026",
+    body: `<p>Every business, regardless of its size or industry, is constantly engaged in one fundamental exercise: optimization. At its core, optimization is beautifully simple—we are either trying to minimize something or maximize something. Every company across the globe, whether consciously or not, operates between these two poles: minimizing business costs on one hand, and maximizing revenue on the other.</p>
+
+<p>But here's the uncomfortable truth: <strong>most businesses settle for less than they should.</strong></p>
+
+<h2>The Trap of Suboptimal Strategies</h2>
+
+<p>If a company employs a strategy that reduces its operational costs or increases its total revenue, yet a better approach exists that could optimize further, that strategy is, by definition, a <strong>suboptimal strategy</strong>. It is not the best strategy—it is simply a strategy that works.</p>
+
+<p>And this is where many businesses quietly drift into complacency. Most companies go to bed peacefully once the difference between their total revenue and total cost yields a "reasonable" positive figure. The numbers are in the green, so the thinking stops. But is "reasonable" truly enough?</p>
+
+<h2>The Elusive Global Optimum</h2>
+
+<p>The reality is that reaching—or staying in—a <strong>"global optimal" strategy</strong> that perfectly optimizes costs or revenue decisions at all times is exceptionally difficult. Markets shift. Consumer behaviors evolve. Supply chains bend. What was optimal yesterday may be suboptimal today. Yet the pursuit of optimization must remain relentless.</p>
+
+<p>We have witnessed countless scenarios in the business world where optimization is actively pursued, sometimes in bold and unconventional ways:</p>
+
+<ul>
+  <li>Companies shipping unfinished products to other countries for completion—whether coupling, packaging, or refining—because the cost arithmetic makes sense.</li>
+  <li>A business deciding to discontinue one or several of its products entirely, choosing focus over fragmentation.</li>
+  <li>Rebranding initiatives aimed at unlocking new market segments.</li>
+  <li>Ramping up production to break into new territories.</li>
+  <li>Strategic hiring or difficult decisions to let employees go.</li>
+  <li>Promotional campaigns, pricing adjustments (upwards or downwards), community outreach, and philanthropic efforts.</li>
+</ul>
+
+<p>These moves are not random. They are all deliberate attempts to either minimize costs or maximize profits. The strategic intent is optimization, plain and simple.</p>
+
+<h2>The Cost of Guessing</h2>
+
+<p>Here is what should genuinely shock us: many businesses—particularly small and medium-scale enterprises—rely heavily on <strong>trial-and-error methods</strong> for these critical decisions. Perhaps the monetary impact of their choices, whether optimal or suboptimal, does not appear significant enough to warrant deeper analysis. The margin for error feels tolerable.</p>
+
+<p>But scale this mindset to multimillion- or billion-dollar enterprises, and the picture changes dramatically. Companies of that magnitude doing trial-and-error optimization do not just lose pocket change—they <strong>haemorrhage value</strong>. Millions of dollars vanish into suboptimal supply chains, pricing models, and resource allocations that were never rigorously examined.</p>
+
+<h2>Optimization Is Not Optional</h2>
+
+<p>Here is the bottom line: optimization is crucial to every business—if that business <strong>really means business</strong> in the first place. It is not a luxury reserved for corporations with dedicated analytics teams. It is a discipline, a mindset, and a commitment to never settling for "good enough" when "better" is within reach.</p>
+
+<p>The question every business leader must ask is painfully simple: <strong><i>Are we optimizing, or are we just getting by?</i></strong></p>
+
+<p>Found this useful? I would love to hear your thoughts. What optimization challenges is your business currently facing? Reach out to me on LinkedIn or send an email, let's keep the conversation going.</p>`,
+    related: [
+      { title: "What Will You Offer When The Jobs Are Gone?", url: "/blogs/what-will-you-offer-when-the-jobs-are-gone" },
+      { title: "The Paradox of Infinite Knowledge", url: "/blogs/The-Paradox-of-Infinite-Knowledge" },
+      { title: "If You Must Be Relevant!", url: "/blogs/if-you-must-be-relevant" }
+    ]
+  };
+  
+  // ===== UPDATE FILENAME PREVIEW =====
+  function updateFilenamePreview() {
+    let val = filenameEl.value.trim() || 'untitled';
+    val = val.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '');
+    filenamePreview.innerHTML = `<i class="fas fa-check-circle"></i> ${val}.html`;
+  }
+  
+  function autoGenerateSlug(title) {
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+  
+  // ===== BUILD FULL HTML =====
+  function buildBlogHTML(data) {
+    const slug = data.filename || autoGenerateSlug(data.title);
+    const canonicalUrl = `https://ugbosu.com/blogs/${slug}`;
+    
+    const relatedHTML = data.related.filter(r => r.title.trim() !== '' && r.url.trim() !== '')
+      .map(r => `<p style="color: red; text-decoration: none;">
+    <a href="${r.url}" style="color: red; text-decoration: none;">
+        📖 ALSO READ: ${r.title}
+    </a>
+</p>`).join('\n');
+    
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-45W1075T2G"><\/script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-45W1075T2G');
+<\/script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>${data.title}</title>
+
+  <meta name="description" content="${data.meta}" />
+  <meta name="author" content="${data.author}" />
+  <link rel="canonical" href="${canonicalUrl}" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="${data.title}" />
+  <meta property="og:description" content="${data.meta}" />
+  <meta property="og:image" content="${data.imgUrl}" />
+  <meta property="og:url" content="${canonicalUrl}" />
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="ugbosu.com"/>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "${data.title}",
+    "description": "${data.meta}",
+    "author": {
+      "@type": "Person",
+      "name": "${data.author}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ugbosu.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://ugbosu.com/android-chrome-512x512.png"
+      }
+    },
+    "image": "${data.imgUrl}",
+    "url": "${canonicalUrl}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "${canonicalUrl}"
+    }
+  }
+  <\/script>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="/assets/css/blogs2.css">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="mobile-header-group">
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="site-title">
+          <img src="/android-chrome-512x512.png" alt="Charles Ugbosu" class="profile-img">
+          <a href="/">Charles Ugbosu</a>
+        </div>
+      </div>
+      <nav id="primary-nav" class="nav-links">
+        <a href="/">Home</a>
+        <a href="/blogs.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <button class="nav-theme-toggle" id="navThemeToggle" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+          <span class="theme-text">Dark Mode</span>
+        </button>
+      </nav>
+    </div>
+    <div class="nav-overlay"></div>
+  </header>
+
+  <div class="blog-post-content">
+    <h1>${data.title}</h1>
+
+    <div style="text-align: center;">
+      <div class="reading-time" id="readingTime">
+        <i class="far fa-clock"></i> Estimated reading time: <span id="timeValue">9 minutes</span>
+        <span style="display: inline-flex; align-items: center; gap: 0.5rem;">
+          <i class="far fa-calendar-alt" style="color: var(--primary-color);"></i>Published: ${data.date}
+        </span>
+      </div>
+    </div>
+
+    ${data.body}
+
+    <img src="${data.imgUrl}" alt="${data.imgAlt}" class="article-image">
+
+    ${relatedHTML}
+  </div>
+
+  <section class="author-section">
+    <div class="author-header">
+      <img src="/images/site-logo.jpg" alt="Ugbosu Charles" class="author-avatar">
+      <div class="author-info">
+        <h3>Charles Ugbosu</h3>
+        <p class="author-title">Optimization and AI Researcher</p>
+      </div>
+    </div>
+    <p class="author-bio">
+      Charles is a passionate researcher and writer with a focus on optimization, operations research, and artificial intelligence. He explores how emerging technologies intersect and shape our digital future.
+    </p>
+    <div class="author-links">
+      <a href="https://www.facebook.com/share/1bmoFREvV6/" class="author-link" target="_blank">
+        <i class="fab fa-facebook"></i> Facebook
+      </a>
+      <a href="https://www.linkedin.com/in/charles-ugbosu-269150221/" class="author-link" target="_blank">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+      <a href="https://www.researchgate.net/profile/Charles-Ugbosu?ev=hdr_xprf" class="author-link" target="_blank">
+        <i class="fab fa-researchgate"></i> ResearchGate
+      </a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-content">
+        <div class="newsletter-wrapper">
+          <div class="newsletter-container">
+            <div class="newsletter-content">
+              <i class="fas fa-envelope-open-text newsletter-icon"></i>
+              <h4 class="newsletter-title">Never miss an article</h4>
+              <p class="newsletter-text">Get notified via email whenever I publish new insights on AI, optimization, and career growth.</p>
+              <form action="https://buttondown.com/api/emails/embed-subscribe/ugbosu" method="post" class="newsletter-form" referrerpolicy="unsafe-url">
+                <div class="form-group">
+                  <input type="email" name="email" id="bd-email" class="newsletter-input" placeholder="Enter your email address" required>
+                  <button type="submit" class="newsletter-button">
+                    Subscribe <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+                <p class="newsletter-footer">
+                  No spam, unsubscribe anytime.
+                  <a href="https://buttondown.com/refer/ugbosu" target="_blank" class="newsletter-link">Powered by Buttondown</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="social-icons">
+          <a href="https://www.researchgate.net/profile/Charles-Ugbosu?ev=hdr_xprf" class="social-icon researchgate" target="_blank" title="ResearchGate">
+            <i class="fab fa-researchgate"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/charles-ugbosu-269150221/" class="social-icon linkedin" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+        <div style="margin: 1rem 0; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; font-size: 0.9rem;">
+          <a href="/privacy-policy.html" style="color: var(--text-light); text-decoration: none; transition: color 0.3s ease;">Privacy Policy</a>
+          <span style="color: var(--text-light);">|</span>
+          <a href="/terms-of-service.html" style="color: var(--text-light); text-decoration: none; transition: color 0.3s ease;">Terms of Service</a>
+        </div>
+        <small class="copyright">
+          © <span id="current-year"></span> ugbosu.com. All rights reserved
+        </small>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const yearElement = document.getElementById('current-year');
+      if (yearElement) yearElement.textContent = new Date().getFullYear();
+    });
+  <\/script>
+  <script src="/assets/javascripts/hamburger-button.js"><\/script>
+  <script src="/assets/javascripts/theme-toggle.js"><\/script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.querySelector('.blog-post-content');
+      if (container) {
+        const clone = container.cloneNode(true);
+        const scripts = clone.querySelectorAll('script, style, .reading-time');
+        scripts.forEach(el => el.remove());
+        const text = clone.textContent || '';
+        const words = text.trim().split(/\\s+/).length;
+        const time = Math.ceil(words / 200);
+        const el = document.getElementById('timeValue');
+        if (el) el.textContent = time + ' minute' + (time !== 1 ? 's' : '');
+      }
+    });
+  <\/script>
+</body>
+</html>`;
+  }
+  
+  // ===== GET FORM DATA =====
+  function getFormData() {
+    const related = [];
+    for (let i = 0; i < relTitles.length; i++) {
+      const t = relTitles[i].value.trim();
+      const u = relUrls[i].value.trim();
+      if (t && u) related.push({ title: t, url: u });
+    }
+    
+    let filename = filenameEl.value.trim() || autoGenerateSlug(titleEl.value.trim() || 'untitled');
+    filename = filename.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '');
+    
+    return {
+      filename: filename,
+      title: titleEl.value.trim() || 'Untitled Blog Post',
+      meta: metaEl.value.trim() || 'A blog post by Charles Ugbosu',
+      author: authorEl.value.trim() || 'Charles Ugbosu',
+      imgUrl: imgUrlEl.value.trim() || '/images/default.jpg',
+      imgAlt: imgAltEl.value.trim() || 'Blog image',
+      date: dateEl.value.trim() || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+      body: bodyEl.value.trim() || '<p>Write your content here...</p>',
+      related: related
+    };
+  }
+  
+  // ===== RENDER PREVIEW =====
+  function renderPreview() {
+    const data = getFormData();
+    const fullHTML = buildBlogHTML(data);
+    const bodyMatch = fullHTML.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+    if (bodyMatch) {
+      previewFrame.innerHTML = bodyMatch[1];
+    } else {
+      previewFrame.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Could not render preview.</p></div>';
+    }
+  }
+  
+  // ===== EXPORT =====
+  function exportHTML() {
+    const data = getFormData();
+    const fullHTML = buildBlogHTML(data);
+    const filename = data.filename + '.html';
+    const blob = new Blob([fullHTML], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('✅ Exported: ' + filename, 'success');
+  }
+  
+  // ===== RESET =====
+  function resetToSample() {
+    filenameEl.value = sampleData.filename;
+    titleEl.value = sampleData.title;
+    metaEl.value = sampleData.meta;
+    authorEl.value = sampleData.author;
+    imgUrlEl.value = sampleData.imgUrl;
+    imgAltEl.value = sampleData.imgAlt;
+    dateEl.value = sampleData.date;
+    bodyEl.value = sampleData.body;
+    for (let i = 0; i < relTitles.length; i++) {
+      if (i < sampleData.related.length) {
+        relTitles[i].value = sampleData.related[i].title;
+        relUrls[i].value = sampleData.related[i].url;
+      } else {
+        relTitles[i].value = '';
+        relUrls[i].value = '';
+      }
+    }
+    updateFilenamePreview();
+    renderPreview();
+    showToast('↩️ Reset to sample data', 'info');
+  }
+  
+  // ===== TOAST =====
+  function showToast(msg, type) {
+    toastMsg.textContent = msg;
+    toast.className = 'toast ' + (type || 'success');
+    toast.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+  
+  // ===== TAB SWITCHING =====
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    
+    const tabContent = document.getElementById('tab-' + tabId);
+    if (tabContent) tabContent.classList.add('active');
+    
+    const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+    if (tabBtn) tabBtn.classList.add('active');
+    
+    const navItem = document.querySelector(`.nav-item[data-tab="${tabId}"]`);
+    if (navItem) navItem.classList.add('active');
+  }
+  
+  // ===== AUTO PREVIEW =====
+  function autoPreview() { renderPreview(); }
+  
+  // ===== EVENTS =====
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+  
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if (item.id === 'navExport') {
+        exportHTML();
+      } else {
+        switchTab(item.dataset.tab);
+      }
+    });
+  });
+  
+  document.getElementById('previewBtn').addEventListener('click', renderPreview);
+  document.getElementById('previewBtn2').addEventListener('click', renderPreview);
+  document.getElementById('exportBtn').addEventListener('click', exportHTML);
+  document.getElementById('exportBtn2').addEventListener('click', exportHTML);
+  document.getElementById('exportBtn3').addEventListener('click', exportHTML);
+  document.getElementById('resetBtn').addEventListener('click', resetToSample);
+  document.getElementById('resetBtn2').addEventListener('click', resetToSample);
+  
+  // Filename auto-generate from title
+  titleEl.addEventListener('input', function() {
+    if (!filenameEl.dataset.manual) {
+      const slug = autoGenerateSlug(this.value);
+      filenameEl.value = slug;
+      updateFilenamePreview();
+    }
+  });
+  
+  filenameEl.addEventListener('input', function() {
+    this.dataset.manual = 'true';
+    updateFilenamePreview();
+  });
+  
+  filenameEl.addEventListener('blur', function() {
+    const cleaned = this.value.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '');
+    this.value = cleaned;
+    updateFilenamePreview();
+  });
+  
+  // Auto-preview on input
+  const inputs = [titleEl, metaEl, authorEl, imgUrlEl, imgAltEl, dateEl, bodyEl, filenameEl];
+  inputs.forEach(el => el.addEventListener('input', autoPreview));
+  relTitles.forEach(el => el.addEventListener('input', autoPreview));
+  relUrls.forEach(el => el.addEventListener('input', autoPreview));
+  
+  // ===== PWA INSTALL =====
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    setTimeout(() => {
+      showToast('📱 Install this app for offline use', 'info');
+    }, 2000);
+  });
+  
+  // Handle app install from toast click
+  document.addEventListener('click', async function(e) {
+    if (e.target.closest('.toast') && deferredPrompt) {
+      deferredPrompt.prompt();
+      const result = await deferredPrompt.userChoice;
+      if (result.outcome === 'accepted') {
+        showToast('✅ App installed!', 'success');
+      }
+      deferredPrompt = null;
+    }
+  });
+  
+  // ===== INIT =====
+  resetToSample();
+  
+})();
+</script>
+
+</body>
+</html>
