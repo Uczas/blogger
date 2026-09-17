@@ -1,8 +1,6 @@
 UGBOSU WRITING STUDIO
 
 SETUP
-Replace the index.html at blogger.ugbosu.com with the enclosed index.html.
-This is your blog-writing tool, so do not replace the homepage at ugbosu.com.
 The editor is contained in one HTML file; no build step is needed.
 
 WRITE A BLOG
